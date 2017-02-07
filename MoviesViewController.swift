@@ -12,6 +12,7 @@ import MBProgressHUD
 
 class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet weak var movieSearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]? // ? allows nil
