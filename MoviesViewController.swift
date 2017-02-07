@@ -10,12 +10,13 @@ import UIKit
 import AFNetworking
 import MBProgressHUD
 
-class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
 
     @IBOutlet weak var movieSearchBar: UISearchBar!
     @IBOutlet weak var tableView: UITableView!
     
     var movies: [NSDictionary]? // ? allows nil
+    var filteredData: [String]!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,6 +30,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.dataSource = self
         tableView.delegate = self
+        movieSearchBar.delegate = self
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
@@ -130,6 +132,21 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         }
         task.resume()
     }
+    /*
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // When there is no text, filteredData is the same as the original data
+        // When user has entered text into the search box
+        // Use the filter method to iterate over all items in the data array
+        // For each item, return true if the item should be included and false if the
+        // item should NOT be included
+        filteredData = searchText.isEmpty ? data : data.filter({(dataString: String) -> Bool in
+            // If dataItem matches the searchText, return true to include it
+            return dataString.range(of: searchText, options: .caseInsensitive) != nil
+        })
+        
+        tableView.reloadData()
+    }
+ */
     
     /*
     // MARK: - Navigation
