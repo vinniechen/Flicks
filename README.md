@@ -17,9 +17,9 @@ The following **optional** features are implemented:
 
 - [ ] User sees an error message when there's a networking error.
 - [ ] Movies are displayed using a CollectionView instead of a TableView.
-- [x] User can search for a movie.
+- [x] User can search for a movie. (in progress)
 - [ ] All images fade in as they are loading.
-- [ ] Customize the UI.
+- [x] Customize the UI.
 
 The following **additional** features are implemented:
 
@@ -27,14 +27,14 @@ The following **additional** features are implemented:
 
 Please list two areas of the assignment you'd like to **discuss further with your peers** during the next class (examples include better ways to implement something, how to extend your app in certain ways, etc):
 
-1. 
-2. 
+1. Ability to tap on a movie in order to see more information
+2. Ability to "save" a movie for later that you intend to watch
 
 ## Video Walkthrough 
 
 Here's a walkthrough of implemented user stories:
 
-<img src='https://i.imgur.com/YcUhrAK.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+<img src='https://i.imgur.com/5y3te2G.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
