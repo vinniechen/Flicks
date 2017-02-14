@@ -17,6 +17,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var movies: [NSDictionary]? // ? allows nil
     var filteredData: [String]!
+    var endpoint: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +34,7 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         movieSearchBar.delegate = self
         
         let apiKey = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = URL(string: "https://api.themoviedb.org/3/movie/now_playing?api_key=\(apiKey)")!
+        let url = URL(string: "https://api.themoviedb.org/3/movie/\(endpoint!)?api_key=\(apiKey)")!
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
@@ -80,13 +81,14 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let overview = movie["overview"] as! String
         
         let baseURL = "https://image.tmdb.org/t/p/w500"
-        let posterURL = movie["poster_path"] as! String
-        
-        let imageURL = NSURL(string: baseURL + posterURL)
+        if let posterURL = movie["poster_path"] as? String { // nil check
+            let imageURL = NSURL(string: baseURL + posterURL)
+            cell.posterView.setImageWith(imageURL! as URL)
+        }
         
         cell.TitleLabel.text = title
         cell.OverviewLabel.text = overview
-        cell.posterView.setImageWith(imageURL! as URL)
+        
       
         
         
@@ -117,7 +119,6 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
             
             if let data = data {
                 if let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary {
-                    print(dataDictionary)
                     
                     self.movies = dataDictionary["results"] as! [NSDictionary]
                     self.tableView.reloadData()
@@ -148,14 +149,22 @@ class MoviesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
  */
     
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        let movie = movies?[(indexPath?.row)!]
+        
+        let detailViewController = segue.destination as! DetailViewController
+        detailViewController.movie = movie
+        
     }
-    */
+    
 
 }
